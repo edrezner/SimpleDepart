@@ -25,6 +25,26 @@ document.addEventListener("DOMContentLoaded", function () {
     let departureMinute = arrivalMinute - tripMinutes;
     let departureHour = arrivalHour - Math.floor(totalMinutes / 60);
 
+    if (arrivalHour === 12 && departureHour < 12 && departureAmPm === "AM") {
+      departureAmPm = "PM";
+    } else if (
+      arrivalHour === 12 &&
+      departureHour < 12 &&
+      departureAmPm === "PM"
+    ) {
+      departureAmPm = "AM";
+    }
+
+    if (arrivalHour >= 1 && departureHour < 1 && departureAmPm === "AM") {
+      departureAmPm = "PM";
+    } else if (
+      arrivalHour >= 1 &&
+      departureHour < 1 &&
+      departureAmPm === "PM"
+    ) {
+      departureAmPm = "AM";
+    }
+
     if (departureMinute < 0) {
       departureMinute = 60 + departureMinute;
       departureHour--;
@@ -36,12 +56,8 @@ document.addEventListener("DOMContentLoaded", function () {
       formattedDepartureMinute = "0" + formattedDepartureMinute;
     }
 
-    if (departureHour <= 0 && departureAmPm === "AM") {
+    if (departureHour <= 0) {
       departureHour = 12 + departureHour;
-      departureAmPm = "PM";
-    } else if (departureHour <= 0 && departureAmPm === "PM") {
-      departureHour = 12 + departureHour;
-      departureAmPm = "AM";
     }
 
     if (!isNaN(departureHour) && !isNaN(departureMinute) && totalMinutes > 0) {
